@@ -52,6 +52,21 @@ void MultiSet::copyFrom(const MultiSet& other)
 	}
 }
 
+void MultiSet::moveFrom(MultiSet&& other)
+{
+	buckets = other.buckets;
+	other.buckets = nullptr;
+
+	n = other.n;
+	other.n = 0;
+
+	k = other.k;
+	other.k = 0;
+
+	bucketsCount = other.bucketsCount;
+	other.bucketsCount = 0;
+}
+
 MultiSet::MultiSet(unsigned n, unsigned k) : n(n), k(k)
 {
 									
@@ -65,6 +80,11 @@ MultiSet::MultiSet(const MultiSet& other)
 	copyFrom(other);
 }
 
+MultiSet::MultiSet(MultiSet&& other) noexcept
+{
+	moveFrom(std::move(other));
+}
+
 MultiSet& MultiSet::operator=(const MultiSet& other)
 {
 	if (this != &other)
@@ -72,6 +92,17 @@ MultiSet& MultiSet::operator=(const MultiSet& other)
 		free();
 		copyFrom(other);
 	}
+	return *this;
+}
+
+MultiSet& MultiSet::operator=(MultiSet&& other) noexcept
+{
+	if(this!=&other)
+	{
+		free();
+		moveFrom(std::move(other));
+	}
+	
 	return *this;
 }
 

@@ -12,6 +12,7 @@ private:
 
 	void free();
 	void copyFrom(const MultiSet& other);
+	void moveFrom(MultiSet&& other);
 
 	unsigned getBucketIndex(unsigned num) const;
 	unsigned getBitIndex(unsigned num) const;
@@ -19,8 +20,13 @@ private:
 public:
 	MultiSet() = default;
 	MultiSet(unsigned n, unsigned k);
+
 	MultiSet(const MultiSet& other);
+	MultiSet(MultiSet&& other) noexcept;
+
 	MultiSet& operator=(const MultiSet& other);
+	MultiSet& operator=(MultiSet&& other) noexcept;
+
 	~MultiSet();
 
 	unsigned getN() const;
