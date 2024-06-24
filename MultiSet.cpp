@@ -253,6 +253,7 @@ void MultiSet::printMemory() const
 
 void MultiSet::serialize(ofstream& ofs) const
 {
+	//TODO use reinterpet cast
 	ofs.write((const char*)&n, sizeof(n));
 	ofs.write((const char*)&k, sizeof(k));
 	ofs.write((const char*)&bucketsCount, sizeof(bucketsCount));
