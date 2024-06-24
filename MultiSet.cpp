@@ -262,7 +262,8 @@ void MultiSet::serialize(ofstream& ofs) const
 void MultiSet::deserialize(ifstream& ifs)
 {
 	free();
-
+	
+	//TODO use reinterpet cast
 	ifs.read((char*)&n, sizeof(n));
 	ifs.read((char*)&k, sizeof(k));
 	ifs.read((char*)&bucketsCount, sizeof(bucketsCount));
